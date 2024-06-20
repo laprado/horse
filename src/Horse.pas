@@ -9,7 +9,11 @@ interface
 uses
 {$IF DEFINED(FPC)}
   SysUtils,
+  {$IF DEFINED(HORSE_MICROHTTP)}
+  Horse.Provider.FPC.MicroHTTPApplication,
+  {$ELSE}
   Horse.Provider.FPC.HTTPApplication,
+  {$ENDIF}
   {$IF DEFINED(HORSE_APACHE)}
   Horse.Provider.FPC.Apache,
   {$ELSEIF DEFINED(HORSE_CGI)}
@@ -98,7 +102,11 @@ type
 {$ELSE}
   THorseProvider =
   {$IF DEFINED(FPC)}
+    {$IF DEFINED(HORSE_MICROHTTP)}
+    Horse.Provider.FPC.MicroHTTPApplication.THorseProvider;
+    {$ELSE}
     Horse.Provider.FPC.HTTPApplication.THorseProvider;
+    {$ENDIF}
   {$ELSE}
     Horse.Provider.Console.THorseProvider;
   {$ENDIF}
